@@ -66,13 +66,13 @@
 <script>
   $('#dataTable').on('click', '.button-update', function () {
     let id = $(this).data('id');
-    let bankName = $(this).data('bankname');
-    let accountNumber = $(this).data('accountnumber');
+    let nameBank = $(this).data('nameBank');
+    let nomorRekening = $(this).data('nomorRekening');
     let name = $(this).data('name');
     $('#edit-modal').modal('show');
     $('.id').val(id);
-    $('.bankName').val(bankName);
-    $('.accountNumber').val(accountNumber);
+    $('.nameBank').val(nameBank);
+    $('.nomorRekening').val(nomorRekening);
     $('.name').val(name);
   })
 </script>

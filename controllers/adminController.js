@@ -149,11 +149,11 @@ module.exports = {
   },
   addBank: async (req, res) => {
     try {
-      const { name, bankName, accountNumber } = req.body;
+      const { name, nameBank, nomorRekening } = req.body;
       await Bank.create({
         name,
-        bankName,
-        accountNumber,
+        nameBank,
+        nomorRekening,
         imageUrl: `images/${req.file.filename}`,
       });
       req.flash("alertMessage", "Success Add Bank");
@@ -167,12 +167,12 @@ module.exports = {
   },
   editBank: async (req, res) => {
     try {
-      const { id, bankName, name, accountNumber } = req.body;
+      const { id, nameBank, name, nomorRekening } = req.body;
       const bank = await Bank.findOne({ _id: id });
       if (req.file == undefined) {
         bank.name = name;
-        bank.bankName = bankName;
-        bank.accountNumber = accountNumber;
+        bank.nameBank = nameBank;
+        bank.nomorRekening = nomorRekening;
         await bank.save();
         req.flash("alertMessage", "Success Update Bank");
         req.flash("alertStatus", "success");
@@ -180,8 +180,8 @@ module.exports = {
       } else {
         await fs.unlink(path.join(`public/${bank.imageUrl}`));
         bank.name = name;
-        bank.bankName = bankName;
-        bank.accountNumber = accountNumber;
+        bank.nameBank = nameBank;
+        bank.nomorRekening = nomorRekening;
         bank.imageUrl = `images/${req.file.filename}`;
         await bank.save();
         req.flash("alertMessage", "Success Update Bank");
@@ -282,6 +282,7 @@ module.exports = {
         alert,
         item,
         action: "show image",
+        user: req.session.user,
       });
     } catch (error) {
       req.flash("alertMessage", `${error.message}`);
@@ -312,6 +313,7 @@ module.exports = {
         item,
         category,
         action: "edit",
+        user: req.session.user,
       });
     } catch (error) {
       req.flash("alertMessage", `${error.message}`);
